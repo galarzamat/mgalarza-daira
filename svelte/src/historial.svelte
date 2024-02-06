@@ -1,7 +1,14 @@
 <script>
     import axios from 'axios';
     import { onMount } from 'svelte';
+    import { resultadoAnterior } from './store';
+    import {push, pop, replace} from 'svelte-spa-router'
     let historial=null;
+    async function enviarResultado(resultado) {
+        resultadoAnterior.update(resultado);
+        push('/calculadora');
+        //new navigateTo('/calculadora');
+    }
     const getHistorial=()=>
     {
      axios.get('http://localhost:8080/historial').then(res=>{
@@ -32,7 +39,9 @@
             <tr>
                 <td class="table-cell">{item.fecha}</td>
                 <td class="table-cell">{item.operacion}</td>
-                <td class="table-cell">{item.resultado}</td>
+                <td class="table-cell">
+                    <button on:click={() => enviarResultado(item.resultado)}>{item.resultado}</button> 
+                </td>
             </tr>
             {/each}
         {/if}        
