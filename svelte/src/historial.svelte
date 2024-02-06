@@ -2,12 +2,11 @@
     import axios from 'axios';
     import { onMount } from 'svelte';
     import { resultadoAnterior } from './store';
-    import {push, pop, replace} from 'svelte-spa-router'
+    import {push} from 'svelte-spa-router'
     let historial=null;
     async function enviarResultado(resultado) {
         resultadoAnterior.update(resultado);
         push('/calculadora');
-        //new navigateTo('/calculadora');
     }
     const getHistorial=()=>
     {
@@ -40,6 +39,7 @@
                 <td class="table-cell">{item.fecha}</td>
                 <td class="table-cell">{item.operacion}</td>
                 <td class="table-cell">
+                    <!-- Boton que tendria que actualizar el valor y cambiar de ruta -->
                     <button on:click={() => enviarResultado(item.resultado)}>{item.resultado}</button> 
                 </td>
             </tr>

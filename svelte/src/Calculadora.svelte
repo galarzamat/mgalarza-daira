@@ -4,6 +4,7 @@
 	let display_number = "";
     let operador = "";
     let primerNum;
+    //Aca se deberia tomar el resultado del historial y usarlo para operaciones
     resultadoAnterior.subscribe(valor => {
         primerNum = valor;
     });
@@ -13,7 +14,7 @@
         if(operador==""){
             if (primerNum.length<2) {
                 primerNum+=value;
-                display_number += value; 
+                display_number += value;
             }
         }else if(segundoNum.length<2){
             segundoNum+=value;
@@ -31,10 +32,12 @@
         operador ="";
         primerNum = "";
         segundoNum = "";
+        resultado="";
 	}
 	const deleteLast = () => {
 		display_number = display_number.slice(0,-1)
 	}
+    //funcion que resuelve operaciones llamando a la api
 	function calculate() {
         if ((primerNum!=="" && segundoNum!=="" && operador!=="")) {
             axios(
