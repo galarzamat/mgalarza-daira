@@ -1,22 +1,26 @@
 <script>
     import axios from 'axios';
+    import { resultadoAnterior } from './store.js';
 	let display_number = "";
     let operador = "";
-    let primero = "";
-    let segundo = "";
+    let primerNum;
+    resultadoAnterior.subscribe(valor => {
+        primerNum = valor;
+    });
+    let segundoNum = "";
+    let resultado="";
 	const AddNumber = (value) =>{
         if(operador==""){
-            if (primero.length<2) {
-                primero+=value;
+            if (primerNum.length<2) {
+                primerNum+=value;
                 display_number += value; 
             }
-        }else if(segundo.length<2){
-            segundo+=value;
-            display_number += value;
+        }else if(segundoNum.length<2){
+            segundoNum+=value;
         }
 	}
 	const addOperator = (value) => {
-        if(operador=="" && primero!==""){
+        if(operador=="" && primerNum!==""){
             operador = value;
             display_number += value;
         }
@@ -25,30 +29,31 @@
 	const clear_display = () => {
 		display_number = "";
         operador ="";
-        primero = "";
-        segundo = "";
+        primerNum = "";
+        segundoNum = "";
 	}
 	const deleteLast = () => {
 		display_number = display_number.slice(0,-1)
 	}
 	function calculate() {
-        if ((primero!=="" && segundo!=="" && operador!=="")) {
+        if ((primerNum!=="" && segundoNum!=="" && operador!=="")) {
             axios(
                 {
                     method: 'post',
                     url: 'http://localhost:8080/resolver',
                     data: {
-                        primernumero: parseInt(primero),
-                        segundonumero: parseInt(segundo),
+                        primernumero: parseInt(primerNum),
+                        segundonumero: parseInt(segundoNum),
                         operador:operador
                     }
                 }).then(res=>
                 {
                     let respuesta=res.data;
-                    display_number+="="+respuesta.resultado;
+                    display_number+=segundoNum;
                     operador ="";
-                    primero = "";
-                    segundo = "";
+                    primerNum = respuesta.resultado;
+                    segundoNum = "";
+                    resultado=respuesta.resultado;
 
                 }).catch(error => 
                 {
@@ -60,7 +65,12 @@
 	
 </script>
 <div class="bg-black py-7 text-white text-right m-2">
-    <p>{display_number}</p>
+    <p class="text-2xl">{display_number}</p>
+    {#if resultado!= ""}
+        <p class="text-2xl">{resultado}</p>
+    {:else} 
+    <p class="text-3xl">{segundoNum}</p>
+    {/if}
 </div>
 <div class="m-2">
     <div class="flex w-full py-1 gap-1">
@@ -91,7 +101,7 @@
     </div>
     <div class="flex w-full py-1 gap-1">
         <button class="btn btn-blue"on:click={() => AddNumber(0)}>0</button>
-        <button class="btn btn-blue" on:click={() => AddNumber(".")}>.</button>
+        <button class="btn btn-blue">.</button>
         <button class="btn btn-green" on:click={() => calculate()}>=</button>
         <button class="btn btn-red" on:click={() => addOperator("+")}>+</button>
     </div>
