@@ -110,19 +110,19 @@
     </div>
 </div>
 <style>
-   .btn{
-    @apply flex-grow text-center p-4 flex-1;
-   } 
-.btn-blue{
-    @apply bg-blue-700 text-white;
-}
-.btn-orange{
-    @apply bg-orange-400 text-white;
-}
-.btn-green{
-    @apply bg-green-600 text-white;
-}
-.btn-red{
-    @apply bg-red-800 text-white;
-}
-</style>
+    .btn{
+     @apply flex-grow text-center p-4 flex-1;
+    } 
+ .btn-blue{
+     @apply bg-blue-700 text-white;
+ }
+ .btn-orange{
+     @apply bg-orange-400 text-white;
+ }
+ .btn-green{
+     @apply bg-green-600 text-white;
+ }
+ .btn-red{
+     @apply bg-red-800 text-white;
+ }
+ </style>
