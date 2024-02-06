@@ -1,39 +1,24 @@
 <script>
     import axios from 'axios';
-<<<<<<< HEAD
-=======
-    import { onMount } from 'svelte';
->>>>>>> 545ab77e50e0072f2fafee4600052ea5ac71a6d5
 	let display_number = "";
     let operador = "";
     let primero = "";
     let segundo = "";
     let operadores=[];
 	const AddNumber = (value) =>{
-<<<<<<< HEAD
 
         if(operador==""){
             if (primero.length<2) {
                 primero+=value;
-                display_number += primero; 
+                display_number += value; 
             }
         }else if(segundo.length<2){
-=======
-        if(primero.length<2 && (isFinite(value) || value === '.')){
-            primero+=value;
-            display_number += primero;
-        }else if(segundo.length < 2 && (isFinite(value) || value === '.')){
->>>>>>> 545ab77e50e0072f2fafee4600052ea5ac71a6d5
             segundo+=value;
             display_number = primero + operador + segundo;
         }
 	}
 	const addOperator = (value) => {
-<<<<<<< HEAD
         if(operador=="" && primero!==""){
-=======
-        if(!operador && primero!==""){
->>>>>>> 545ab77e50e0072f2fafee4600052ea5ac71a6d5
             operador = value;
             display_number += operador;
         }
@@ -49,12 +34,8 @@
 		display_number = display_number.slice(0,-1)
 	}
 	function calculate() {
-<<<<<<< HEAD
         if (primero!=="" && segundo!=="" && operador!=="") {
             axios({
-=======
-        axios({
->>>>>>> 545ab77e50e0072f2fafee4600052ea5ac71a6d5
                 method: 'post',
                 url: 'http://localhost:8080/resolver',
                 data: {
@@ -65,20 +46,12 @@
                 }).then(res=>{
                 let respuesta=res.data;
                 display_number+="="+respuesta.resultado;
-<<<<<<< HEAD
                 console.log(res.data);
         }).catch(error => {
             display_number="Error al  realizar la operacion:", error;
         });;
         }
         
-=======
-                console.log(respuesta.resultado);
-        }).catch(error => {
-            display_number="Error al obtener el realizar la operacion:", error;
-            console.error("Error al obtener el realizar la operacion:", error);
-        });;
->>>>>>> 545ab77e50e0072f2fafee4600052ea5ac71a6d5
 	}
 	
 </script>
