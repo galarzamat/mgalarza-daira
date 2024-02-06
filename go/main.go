@@ -1,7 +1,9 @@
 package main
 
 import (
+	"math"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -27,7 +29,6 @@ func postOperacion(c *gin.Context) {
 
 	response := OpRensponse{}
 	response.Fecha = time.Now().Format("2/1/2006")
-
 	switch NuevaOperacion.Operador {
 	case "+":
 		response.Resultado = float64(NuevaOperacion.PrimerNumero) + float64(NuevaOperacion.SegundoNumero)
@@ -41,9 +42,12 @@ func postOperacion(c *gin.Context) {
 		} else {
 			response.Resultado = float64(NuevaOperacion.PrimerNumero) / float64(NuevaOperacion.SegundoNumero)
 		}
-
+	case "%":
+		response.Resultado = math.Mod(float64(NuevaOperacion.PrimerNumero), float64(NuevaOperacion.SegundoNumero))
 	}
+	response.Operacion = strconv.Itoa(NuevaOperacion.PrimerNumero) + NuevaOperacion.Operador + strconv.Itoa(NuevaOperacion.SegundoNumero)
 	historialOp = append(historialOp, response)
+	c.IndentedJSON(http.StatusCreated, response)
 }
 
 func getHistorial(c *gin.Context) {
