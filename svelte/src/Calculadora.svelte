@@ -4,9 +4,7 @@
     let operador = "";
     let primero = "";
     let segundo = "";
-    let operadores=[];
 	const AddNumber = (value) =>{
-
         if(operador==""){
             if (primero.length<2) {
                 primero+=value;
@@ -14,13 +12,13 @@
             }
         }else if(segundo.length<2){
             segundo+=value;
-            display_number = primero + operador + segundo;
+            display_number += value;
         }
 	}
 	const addOperator = (value) => {
         if(operador=="" && primero!==""){
             operador = value;
-            display_number += operador;
+            display_number += value;
         }
             
 	}
@@ -34,22 +32,28 @@
 		display_number = display_number.slice(0,-1)
 	}
 	function calculate() {
-        if (primero!=="" && segundo!=="" && operador!=="") {
-            axios({
-                method: 'post',
-                url: 'http://localhost:8080/resolver',
-                data: {
-                    primernumero: parseInt(primero),
-                    segundonumero: parseInt(segundo),
-                    operador:operador
-                }
-                }).then(res=>{
-                let respuesta=res.data;
-                display_number+="="+respuesta.resultado;
-                console.log(res.data);
-        }).catch(error => {
-            display_number="Error al  realizar la operacion:", error;
-        });;
+        if ((primero!=="" && segundo!=="" && operador!=="")) {
+            axios(
+                {
+                    method: 'post',
+                    url: 'http://localhost:8080/resolver',
+                    data: {
+                        primernumero: parseInt(primero),
+                        segundonumero: parseInt(segundo),
+                        operador:operador
+                    }
+                }).then(res=>
+                {
+                    let respuesta=res.data;
+                    display_number+="="+respuesta.resultado;
+                    operador ="";
+                    primero = "";
+                    segundo = "";
+
+                }).catch(error => 
+                {
+                    display_number="Error al  realizar la operacion:", error;
+                });;
         }
         
 	}
