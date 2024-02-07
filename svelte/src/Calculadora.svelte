@@ -5,9 +5,11 @@
     let operador = "";
     let primerNum;
     //Aca se deberia tomar el resultado del historial y usarlo para operaciones
-    resultadoAnterior.subscribe(valor => {
-        primerNum = valor;
+    resultadoAnterior.subscribe(value => {
+        primerNum = value;
+        display_number += value;
     });
+
     let segundoNum = "";
     let resultado="";
 	const AddNumber = (value) =>{
