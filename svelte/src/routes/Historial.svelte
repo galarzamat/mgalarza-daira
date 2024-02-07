@@ -1,7 +1,7 @@
 <script>
     import axios from 'axios';
     import { onMount } from 'svelte';
-    import { resultadoAnterior } from './store';
+    import { resultadoAnterior } from '../store';
     import {push} from 'svelte-spa-router';
     let historial=null;
     async function enviarResultado(resultado) {

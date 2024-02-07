@@ -1,7 +1,7 @@
 <script >
     import Router from 'svelte-spa-router';
-    import Calculadora from './Calculadora.svelte';
-    import Historial from './Historial.svelte';
+    import Calculadora from './routes/Calculadora.svelte';
+    import Historial from './routes/Historial.svelte';
     const routes = {
     '/': Calculadora,
     '/calculadora': Calculadora,

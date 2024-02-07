@@ -1,10 +1,10 @@
 <script>
     import axios from 'axios';
-    import { resultadoAnterior } from './store.js';
+    import { resultadoAnterior } from '../store.js';
 	let display_number = "";
     let operador = "";
     let primerNum;
-    //Aca se deberia tomar el resultado del historial y usarlo para operaciones
+    //Se toma el resultado del historial
     resultadoAnterior.subscribe(value => {
         primerNum = value;
         display_number += value;
@@ -27,7 +27,6 @@
             operador = value;
             display_number += value;
         }
-            
 	}
 	const clear_display = () => {
 		display_number = "";
