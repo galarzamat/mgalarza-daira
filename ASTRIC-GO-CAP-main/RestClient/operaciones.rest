@@ -1,4 +1,10 @@
 
-GET http://localhost:3000/operaciones/prueba HTTP/1.1
+
+###Historial de operaciones
+GET http://localhost:3000/operaciones/historial
+Database: prueba
+Authorization: dev
+###Funcion que resuelve operaciones
+POST http://localhost:3000/operaciones/resolver
 Database: prueba
 Authorization: dev

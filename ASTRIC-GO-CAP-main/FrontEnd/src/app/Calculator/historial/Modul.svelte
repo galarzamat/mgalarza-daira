@@ -10,7 +10,7 @@
     }
     const getHistorial=()=>
     {
-     axios.get('http://localhost:8080/historial').then(res=>{
+     axios.get('http://localhost:3000/operaciones/historial').then(res=>{
         historial=res.data;
         console.log(res);
      }).catch(error => {

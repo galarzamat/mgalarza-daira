@@ -46,7 +46,7 @@
             axios(
                 {
                     method: 'post',
-                    url: 'http://localhost:8080/resolver',
+                    url: 'http://localhost:3000/operaciones/resolver',
                     data: {
                         primernumero: parseInt(primerNum),
                         segundonumero: parseInt(segundoNum),

@@ -3,12 +3,11 @@ package controllers
 import (
 	"ASTRIC/BackEnd/api/operaciones/models"
 	"ASTRIC/BackEnd/shared/ep"
+	"encoding/json"
 	"math"
 	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 var historialOp = []models.OpRensponse{}
@@ -31,11 +30,9 @@ func Prueba(w http.ResponseWriter, r *http.Request) {
 }
 
 // Postoperacion Funcion que resuelve las operaciones y las guarda en el historial
-func Postoperacion(c *gin.Context, w http.ResponseWriter, r *http.Request) {
+func Postoperacion(w http.ResponseWriter, r *http.Request) {
 	defer ep.ErrorControlResponse("/operaciones/resolver", w, r)
 	var NuevaOperacion models.OpRequest
-	c.BindJSON(&NuevaOperacion)
-
 	response := models.OpRensponse{}
 	response.Fecha = time.Now().Format("2/1/2006")
 	switch NuevaOperacion.Operador {
@@ -56,11 +53,11 @@ func Postoperacion(c *gin.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	response.Operacion = strconv.Itoa(NuevaOperacion.PrimerNumero) + NuevaOperacion.Operador + strconv.Itoa(NuevaOperacion.SegundoNumero)
 	historialOp = append(historialOp, response)
-	c.IndentedJSON(http.StatusCreated, response)
+	json.NewEncoder(w).Encode(response)
 }
 
 // Gethistorial da el historial de operaciones realizadas
-func Gethistorial(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, historialOp)
-
+func Gethistorial(w http.ResponseWriter, r *http.Request) {
+	defer ep.ErrorControlResponse("/operaciones/historial", w, r)
+	json.NewEncoder(w).Encode(historialOp)
 }
