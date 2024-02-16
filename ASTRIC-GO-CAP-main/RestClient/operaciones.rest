@@ -5,6 +5,14 @@ GET http://localhost:3000/operaciones/historial
 Database: prueba
 Authorization: dev
 ###Funcion que resuelve operaciones
-POST http://localhost:3000/operaciones/resolver
+POST http://localhost:3000/operaciones/resolver HTTP/1.1
 Database: prueba
 Authorization: dev
+Content-Type: application/json
+
+{
+    "operador": "+",
+	"primernumero": 2,
+    "segundonumero": 2
+}
+

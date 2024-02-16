@@ -1,45 +1,65 @@
 <script>
     import axios from 'axios';
     import { resultadoAnterior } from '../shared/store';
-    let display_number = '';
+    import { string } from 'mathjs';
+    let display_number = '0'; // Inicializar con '0' para que el div sea visible desde el inicio
     let operador = '';
     let primerNum = '';
-    //Se toma el resultado del historial
-    resultadoAnterior.subscribe(value => {
-        primerNum = value;
-        display_number += value;
-    });
-
     let segundoNum = '';
     let resultado = '';
-    // @ts-ignore
+
+    // Se toma el resultado del historial
+    resultadoAnterior.subscribe(value => {
+        primerNum = value.toString();
+        display_number = value.toString(); // Asegurar que el valor inicial se muestre
+    });
+
     const AddNumber = value => {
         if (operador == '') {
             if (primerNum.length < 2) {
                 primerNum += value;
-                display_number += value;
+                display_number = primerNum; // Actualizar display_number directamente
             }
-        } else if (segundoNum.length < 2) {
-            segundoNum += value;
+        } else {
+            if (segundoNum.length < 2) {
+                segundoNum += value;
+                display_number += value; // Asegurar que el segundo número se añada al display
+            }
         }
     };
-    // @ts-ignore
+
     const addOperator = value => {
         if (operador == '' && primerNum !== '') {
             operador = value;
             display_number += value;
         }
     };
+
     const clear_display = () => {
-        display_number = '';
+        display_number = '0'; // Resetea a '0' para mantener el div visible
         operador = '';
         primerNum = '';
         segundoNum = '';
         resultado = '';
     };
+
     const deleteLast = () => {
-        display_number = display_number.slice(0, -1);
+        if (segundoNum !== '') {
+            segundoNum = segundoNum.slice(0, -1);
+        } else if (operador !== '') {
+            operador = '';
+        } else if (primerNum !== '') {
+            primerNum = primerNum.slice(0, -1);
+        }
+        updateDisplay();
     };
+
+    // Función para actualizar el display basado en el estado actual
+    function updateDisplay() {
+        display_number = `${primerNum}${operador}${segundoNum}`;
+        if (display_number === '') display_number = '0';
+    }
+
     //funcion que resuelve operaciones llamando a la api
     function calculate() {
         if (primerNum !== '' && segundoNum !== '' && operador !== '') {
@@ -54,21 +74,22 @@
             })
                 .then(res => {
                     let respuesta = res.data;
-                    display_number += segundoNum;
-                    operador = '';
-                    primerNum = respuesta.resultado;
-                    segundoNum = '';
                     resultado = respuesta.resultado;
+                    primerNum = resultado.toString();
+                    segundoNum = '';
+                    operador = '';
+                    display_number = primerNum;
                 })
                 .catch(error => {
-                    (display_number = 'Error al  realizar la operacion:'), error;
+                    console.log('Error al realizar la operacion:', error);
+                    display_number = 'Error'; // Muestra un mensaje de error
                 });
         }
     }
 </script>
 
 <div class="bg-black py-7 text-white text-right m-2">
-    <p class="text-2xl">{display_number || segundoNum}</p>
+    <p class="text-2xl">{display_number || segundoNum || '0'}</p>
     {#if resultado}
         <p class="text-2xl">{resultado}</p>
     {/if}
