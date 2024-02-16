@@ -72,6 +72,11 @@
 </script>
 <div class="bg-black py-7 text-white text-right m-2">
     <p class="text-2xl">{display_number}</p>
+    {#if resultado!= ""}
+        <p class="text-2xl">{resultado}</p>
+    {:else} 
+        <p class="text-3xl">{segundoNum}</p>
+    {/if}
 </div>
 <div class="m-2">
     <div class="flex w-full py-1 gap-1">

@@ -3,7 +3,7 @@
     import { onMount } from 'svelte';
     import { resultadoAnterior } from '../shared/store';
     import {push} from 'svelte-spa-router';
-    let historial="nada";
+    var historial=null;
     async function enviarResultado(resultado) {
         resultadoAnterior.set(resultado);
         push('/calculadora');
@@ -44,8 +44,10 @@
                 </td>
             </tr>
             {/each}
-        {/if}        
+        {/if}
+       
     {:catch error}
+        <p>No hay resultados todavia</p>
         <p>Error: {error}</p>
     {/await}
         </tbody>
