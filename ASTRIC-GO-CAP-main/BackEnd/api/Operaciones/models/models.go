@@ -14,8 +14,3 @@ type OpRensponse struct {
 	Resultado float64 `json:"resultado"`
 	Fecha     string  `json:"fecha"`
 }
-type Cliente struct {
-	Nombre   string `json:"cliente_nombre"`
-	Apellido string `json:"cliente_apellido"`
-	Edad     int    `json:"cliente_edad"`
-}

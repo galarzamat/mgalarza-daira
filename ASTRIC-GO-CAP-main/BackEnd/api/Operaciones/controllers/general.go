@@ -12,23 +12,6 @@ import (
 
 var historialOp = []models.OpRensponse{}
 
-// Prueba esta es una funcion de prueba
-func Prueba(w http.ResponseWriter, r *http.Request) {
-
-	defer ep.ErrorControlResponse("/operaciones/prueba", w, r)
-
-	res := ep.NewResponse("Prueba de funcionamiento", w)
-
-	var cliene models.Cliente
-
-	cliene.Nombre = "Nombre"
-	cliene.Edad = 45
-	cliene.Apellido = "Apellido"
-
-	res.DatoSend(cliene)
-
-}
-
 // Postoperacion Funcion que resuelve las operaciones y las guarda en el historial
 func Postoperacion(w http.ResponseWriter, r *http.Request) {
 	defer ep.ErrorControlResponse("/operaciones/resolver", w, r)
