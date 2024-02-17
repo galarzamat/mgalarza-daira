@@ -1,7 +1,6 @@
 <script>
     import axios from 'axios';
     import { resultadoAnterior } from '../shared/store';
-    import { string } from 'mathjs';
     let display_number = '0'; // Inicializar con '0' para que el div sea visible desde el inicio
     let operador = '';
     let primerNum = '';
@@ -63,6 +62,8 @@
     //funcion que resuelve operaciones llamando a la api
     function calculate() {
         if (primerNum !== '' && segundoNum !== '' && operador !== '') {
+            console.log('Calculando...');
+            console.log(primerNum, operador, segundoNum);
             axios({
                 method: 'post',
                 url: 'http://localhost:3000/operaciones/resolver',
