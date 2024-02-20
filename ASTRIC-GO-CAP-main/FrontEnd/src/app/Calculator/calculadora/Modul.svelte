@@ -1,5 +1,5 @@
 <script>
-    import axios from 'axios';
+    import { http } from '@astric';
     import { resultadoAnterior } from '../shared/store';
     let display_number = '0'; // Inicializar con '0' para que el div sea visible desde el inicio
     let operador = '';
@@ -62,29 +62,22 @@
     //funcion que resuelve operaciones llamando a la api
     function calculate() {
         if (primerNum !== '' && segundoNum !== '' && operador !== '') {
-            console.log('Calculando...');
-            console.log(primerNum, operador, segundoNum);
-            axios({
-                method: 'POST',
-                url: 'http://localhost:3000/operaciones/resolver',
-                data: {
-                    primernumero: parseInt(primerNum),
-                    segundonumero: parseInt(segundoNum),
-                    operador: operador,
-                },
+            http.post('operaciones/resolver', {
+                primernumero: parseInt(primerNum),
+                segundonumero: parseInt(segundoNum),
+                operador: operador,
             })
                 .then(res => {
                     let respuesta = res.data;
-                    resultado = respuesta.resultado;
-                    primerNum = resultado.toString();
-                    segundoNum = '';
+                    let resultado = respuesta.resultado;
+                    primerNum = segundoNum = '';
                     operador = '';
-                    display_number = primerNum;
+                    display_number += resultado.toString();
                 })
-                .catch(error => {
-                    console.log('Error al realizar la operacion:', error.response ? error.response : error);
-                    display_number = 'Error'; // Muestra un mensaje de error// Muestra un mensaje de error
-                });
+                .catch(err => {
+                    err;
+                })
+                .finally(() => {});
         }
     }
 </script>

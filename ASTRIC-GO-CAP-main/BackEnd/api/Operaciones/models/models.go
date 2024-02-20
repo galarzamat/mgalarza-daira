@@ -10,7 +10,6 @@ type OpRequest struct {
 //OpRensponse estructura para mostrar las operaciones
 type OpRensponse struct {
 	Operacion string  `json:"operacion"`
-	Error     string  `json:"error"`
 	Resultado float64 `json:"resultado"`
 	Fecha     string  `json:"fecha"`
 }
