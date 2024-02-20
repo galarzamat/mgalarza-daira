@@ -65,7 +65,7 @@
             console.log('Calculando...');
             console.log(primerNum, operador, segundoNum);
             axios({
-                method: 'post',
+                method: 'POST',
                 url: 'http://localhost:3000/operaciones/resolver',
                 data: {
                     primernumero: parseInt(primerNum),
@@ -82,8 +82,8 @@
                     display_number = primerNum;
                 })
                 .catch(error => {
-                    console.log('Error al realizar la operacion:', error);
-                    display_number = 'Error'; // Muestra un mensaje de error
+                    console.log('Error al realizar la operacion:', error.response ? error.response : error);
+                    display_number = 'Error'; // Muestra un mensaje de error// Muestra un mensaje de error
                 });
         }
     }
