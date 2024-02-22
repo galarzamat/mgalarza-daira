@@ -5,8 +5,8 @@
     import { lastResult } from '../shared/store';
     import { push } from 'svelte-spa-router';
     let historial: object[] = [];
-    const sendResult = async (resultado = '') => {
-        lastResult.set(resultado);
+    const sendResult = async (result = '') => {
+        lastResult.set(result);
         push('/calculadora');
     };
     const getHistorial = () => {
@@ -41,10 +41,10 @@
                 {#if historial && historial.length != 0}
                     {#each historial as item}
                         <tr>
-                            <td class="table-cell">{item.fecha}</td>
-                            <td class="table-cell">{item.operacion}</td>
+                            <td class="table-cell">{item.date}</td>
+                            <td class="table-cell">{item.operation}</td>
                             <td class="table-cell">
-                                <button on:click={() => sendResult(item.resultado)}>{item.resultado}</button>
+                                <button on:click={() => sendResult(item.result)}>{item.result}</button>
                             </td>
                         </tr>
                     {/each}

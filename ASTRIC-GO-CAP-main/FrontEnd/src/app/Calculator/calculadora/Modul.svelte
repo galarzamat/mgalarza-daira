@@ -63,13 +63,13 @@
     function calculate() {
         if (firstNumber !== '' && secondNumber !== '' && operator !== '') {
             http.post('operaciones/resolver', {
-                primernumero: parseInt(firstNumber),
-                segundonumero: parseInt(secondNumber),
-                operador: operator,
+                firstnumber: parseInt(firstNumber),
+                secondnumber: parseInt(secondNumber),
+                operator: operator,
             })
                 .then(res => {
                     let respuesta = res.datos;
-                    let result = respuesta.resultado;
+                    let result = respuesta.result;
                     firstNumber = '';
                     secondNumber = '';
                     operator = '';

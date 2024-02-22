@@ -22,7 +22,7 @@ func Postoperacion(w http.ResponseWriter, r *http.Request) {
 	response := models.OpRensponse{}
 
 	date := time.Now()
-	response.Fecha = date.Format("02/01/2006")
+	response.Date = date.Format("02/01/2006")
 
 	err := json.NewDecoder(r.Body).Decode(&NuevaOperacion)
 	if err != nil {
@@ -30,20 +30,20 @@ func Postoperacion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	switch NuevaOperacion.Operador {
+	switch NuevaOperacion.Operator {
 	case "+":
-		response.Resultado = float64(NuevaOperacion.PrimerNumero) + float64(NuevaOperacion.SegundoNumero)
+		response.Result = float64(NuevaOperacion.FirstNumber) + float64(NuevaOperacion.SecondNumber)
 	case "-":
-		response.Resultado = float64(NuevaOperacion.PrimerNumero) - float64(NuevaOperacion.SegundoNumero)
+		response.Result = float64(NuevaOperacion.FirstNumber) - float64(NuevaOperacion.SecondNumber)
 	case "*":
-		response.Resultado = float64(NuevaOperacion.PrimerNumero) * float64(NuevaOperacion.SegundoNumero)
+		response.Result = float64(NuevaOperacion.FirstNumber) * float64(NuevaOperacion.SecondNumber)
 	case "/":
-		response.Resultado = float64(NuevaOperacion.PrimerNumero) / float64(NuevaOperacion.SegundoNumero)
+		response.Result = float64(NuevaOperacion.FirstNumber) / float64(NuevaOperacion.SecondNumber)
 	case "%":
-		response.Resultado = math.Mod(float64(NuevaOperacion.PrimerNumero), float64(NuevaOperacion.SegundoNumero))
+		response.Result = math.Mod(float64(NuevaOperacion.FirstNumber), float64(NuevaOperacion.SecondNumber))
 	}
 
-	response.Operacion = strconv.Itoa(NuevaOperacion.PrimerNumero) + NuevaOperacion.Operador + strconv.Itoa(NuevaOperacion.SegundoNumero)
+	response.Operation = strconv.Itoa(NuevaOperacion.FirstNumber) + NuevaOperacion.Operator + strconv.Itoa(NuevaOperacion.SecondNumber)
 	historialOp = append(historialOp, response) // Guardar la operación en el historial
 
 	w.Header().Set("Content-Type", "application/json")
