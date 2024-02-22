@@ -2,7 +2,7 @@ package models
 
 //Oprequest estructura para realizar operaciones
 type OpRequest struct {
-	Operador      string `json:"operador"`
+	Operator      string `json:"operator"`
 	PrimerNumero  int    `json:"primernumero"`
 	SegundoNumero int    `json:"segundonumero"`
 }

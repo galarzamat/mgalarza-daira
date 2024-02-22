@@ -54,5 +54,7 @@ func Postoperacion(w http.ResponseWriter, r *http.Request) {
 // Gethistorial da el historial de operaciones realizadas
 func Gethistorial(w http.ResponseWriter, r *http.Request) {
 	defer ep.ErrorControlResponse("/operaciones/historial", w, r)
-	json.NewEncoder(w).Encode(historialOp)
+
+	res := ep.NewResponse("Operacion", w)
+	res.DatoSend(historialOp)
 }

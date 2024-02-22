@@ -1,19 +1,18 @@
-<script>
+<script lang="ts">
     // @ts-nocheck
-
     import { http } from '@astric';
     import { onMount } from 'svelte';
-    import { resultadoAnterior } from '../shared/store';
+    import { lastResult } from '../shared/store';
     import { push } from 'svelte-spa-router';
-    let historial = null;
-    async function enviarResultado(resultado = '') {
-        resultadoAnterior.set(resultado);
+    let historial: object[] = [];
+    const sendResult = async (resultado = '') => {
+        lastResult.set(resultado);
         push('/calculadora');
-    }
+    };
     const getHistorial = () => {
         http.get('operaciones/historial')
             .then(res => {
-                historial = res.data;
+                historial = res.datos.reverse();
             })
             .catch(error => {
                 error;
@@ -45,8 +44,7 @@
                             <td class="table-cell">{item.fecha}</td>
                             <td class="table-cell">{item.operacion}</td>
                             <td class="table-cell">
-                                <!-- Boton que tendria que actualizar el valor y cambiar de ruta -->
-                                <button on:click={() => enviarResultado(item.resultado)}>{item.resultado}</button>
+                                <button on:click={() => sendResult(item.resultado)}>{item.resultado}</button>
                             </td>
                         </tr>
                     {/each}
