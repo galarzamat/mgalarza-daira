@@ -4,6 +4,6 @@
 </script>
 
 <main>
-    <h1 class="text-center text-3xl bg-gray-300 font-bold pb-1 mb-2">Calculadora Básica</h1>
+    <h1 class="text-center text-4xl bg-gray-300 font-bold pb-1 mb-2">Calculadora Básica</h1>
     <Router {routes} />
 </main>

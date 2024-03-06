@@ -127,7 +127,7 @@
 
 <style>
     .btn {
-        @apply flex-grow text-center p-4 flex-1;
+        @apply flex-grow text-center p-4 flex-1 m-1 w-full;
     }
     .btn-blue {
         @apply bg-blue-700 text-white;
